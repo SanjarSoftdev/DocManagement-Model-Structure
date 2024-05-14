@@ -1,5 +1,4 @@
 using DocumentManagement;
-using EntityGraphQL.AspNet;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,9 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
            options.UseSqlServer("data source=localhost;Database=DocManager;integrated security=True;TrustServerCertificate=True;"));
-builder.Services.AddGraphQLSchema<ApplicationDbContext>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -32,7 +31,6 @@ app.UseAuthorization();
 app.UseEndpoints(routeBuilder =>
 {
     routeBuilder.MapControllers();
-    routeBuilder.MapGraphQL<ApplicationDbContext>();
 });
 
 app.MapControllers();
